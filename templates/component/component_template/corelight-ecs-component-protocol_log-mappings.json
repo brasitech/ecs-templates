@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Corelight ECS Templates. For technical issues, questions, and documentation see https://github.com/corelight/ecs-templates"
   },
-  "version": 2023120101,
+  "version": 2024011001,
   "template": {
     "settings": {
       "index": {
@@ -2926,6 +2926,10 @@
                   "type": "keyword"
                 },
                 "fid": {
+                  "ignore_above": 2048,
+                  "type": "keyword"
+                },
+                "file_id": {
                   "ignore_above": 2048,
                   "type": "keyword"
                 },
