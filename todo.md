@@ -13,26 +13,30 @@ pip3 install requests # if not wanting to maintain requests via packager manager
 - [ ] finish smtp.X to email.X alias backward compatibility
 - [ ] related.X fields see gdoc for all. having removed copy_to for related.X fields, finish logic for ingest pipelines and logstash pipelines
     - [x] logstash pipelines
-        - [x] related.ip
-        - [x] related.host
-        - [x] related.user
+        - [ ] related.as_number
         - [x] related.hash
-        - [x] related.mac
+        - [x] related.hosts
         - [x] related.id
+        - [x] related.ip
+        - [x] related.mac
+        - [x] related.user
+        - [ ] related.vlan_id
     - [ ] ingest pipelines
-        - [ ] related.ip
-        - [ ] related.host
-        - [ ] related.user
+        - [ ] related.as_number
         - [ ] related.hash
-        - [ ] related.mac
+        - [ ] related.hosts
         - [ ] related.id
+        - [ ] related.ip
+        - [ ] related.mac
+        - [ ] related.user
+        - [ ] related.vlan_id
 - [ ] pass cert for elaticsearch so if wanting to not ignore, can do so
   - [ ] if user says yes, then
     - [ ] prompt for cert path
     - [ ] check path exists
     - [ ] add to requests session for resuse
 - [ ] final change log
-  - [ ] remove brasitech references/defaults before finalizing
+  - [x] remove brasitech references/defaults before finalizing
 - [x] concat all the logstash files into one file for upload for central pipeline management. basically no matter what, always save a central_pipeline_management.conf file
     - [x] create functions and test
     - [x] add as an arg parse option to the script, where the prompts for directory and path for output file
@@ -47,6 +51,13 @@ pip3 install requests # if not wanting to maintain requests via packager manager
 - [x] add ability to change master_timeout for certain requests/uri parameters, for huge clusters this sometimes can get in the way. ]
 
 ## Priority 2
+- [ ] event.severity mapping as long from keyword.
+  - [x] change elasticsearch mapping
+  - [ ] change/verify fields in logstash pipelines
+- [ ] network.inner.vlan.id as keyword from long
+  - [x] change elasticsearch mapping
+- [ ] network.vlan.id as keyword from integer
+  - [x] change elasticsearch mapping
 - [ ] ja4 fields https://github.com/FoxIO-LLC/ja4/tree/main/zeek
 - [ ] suricata logs
     - [ ] add payload field for suricata_corelight into logstash and the field to index/component template
@@ -110,6 +121,54 @@ pip3 install requests # if not wanting to maintain requests via packager manager
 
 ## Priority 3
 - [ ] break out each ECS field set into its own file
+  - [x] base
+  - [x] agent
+  - [x] client
+  - [x] cloud (n/a)
+  - [ ] code
+  - [x] container (n/a)
+  - [x] data_stream
+  - [x] destination
+  - [ ] device
+  - [x] dll (n/a)
+  - [x] dns
+  - [x] ecs
+  - [x] elf (n/a)
+  - [ ] email
+  - [x] error
+  - [x] event
+  - [ ] faas
+  - [x] file
+  - [ ] group
+  - [ ] hash
+  - [x] host
+  - [x] http
+  - [ ] interface
+  - [x] log
+  - [x] mach-o (n/a)
+  - [x] network
+  - [x] observer
+  - [ ] orchestrator
+  - [x] organization
+  - [ ] operating system
+  - [ ] package
+  - [ ] pe header
+  - [ ] process
+  - [ ] registry
+  - [x] related
+  - [ ] risk information
+  - [ ] rule
+  - [x] server
+  - [ ] service
+  - [x] source
+  - [ ] threat
+  - [x] tls
+  - [ ] tracing
+  - [x] url
+  - [x] user
+  - [x] user_agent
+  - [ ] vulnerability
+  - [x] x509
 - [ ] use `[@metadata][etl][logstash_pipelines]`
     - [ ] logstash pipelines
     - [ ] index mappings

@@ -41,6 +41,11 @@
 - changed suricata_corelight dataset back to suricata_corelight from suricata
 - parse-failures is now parse\_failures & parse-failure is parse\_failure
 
+- removed file.changed alias to file.created. just keeps file.created now and no longer adds this alias
+- removed file.modified alias to file.mtime. just keeps file.mtime now and no longer adds this alias
+- removed client.address alias to source.address
+- removed sever.address alias to destination.address
+
 - change intel log event.category from intrustion_detection to threat
 
 - changed VAR\_$Corelight\_LS\_Index\_Strategy to VAR\_CORELIGHT\_INDEX\_STRATEGY
