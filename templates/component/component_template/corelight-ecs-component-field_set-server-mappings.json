@@ -1,0 +1,321 @@
+{
+  "_meta": {
+    "description": "Corelight ECS Templates. For technical issues, questions, and documentation see https://github.com/corelight/ecs-templates"
+  },
+  "version": 2024011501,
+  "template": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "es_stk_analyzer": {
+              "char_filter": [
+                "whitespace_no_way"
+              ],
+              "filter": [
+                "trim",
+                "lowercase",
+                "max_token_truncate"
+              ],
+              "tokenizer": "keyword",
+              "type": "custom"
+            }
+          },
+          "char_filter": {
+            "whitespace_no_way": {
+              "pattern": "(\\s)+",
+              "replacement": "$1",
+              "type": "pattern_replace"
+            }
+          },
+          "filter": {
+            "max_token_truncate": {
+              "length": "32766",
+              "type": "truncate"
+            },
+            "path_hierarchy_pattern_filter": {
+              "patterns": [
+                "((?:[^\\\\]*\\\\)*)(.*)",
+                "((?:[^/]*/)*)(.*)"
+              ],
+              "preserve_original": "true",
+              "type": "pattern_capture"
+            }
+          },
+          "tokenizer": {
+            "path_tokenizer": {
+              "delimiter": "\\",
+              "type": "path_hierarchy"
+            }
+          }
+        }
+      }
+    },
+    "mappings": {
+      "properties": {
+        "server": {
+          "properties": {
+            "address": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "as": {
+              "properties": {
+                "number": {
+                  "type": "long"
+                },
+                "organization": {
+                  "properties": {
+                    "name": {
+                      "fields": {
+                        "security": {
+                          "type": "text",
+                          "analyzer": "es_stk_analyzer"
+                        }
+                      },
+                      "ignore_above": 32765,
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "bytes": {
+              "type": "long"
+            },
+            "domain": {
+              "ignore_above": 32765,
+              "type": "keyword",
+              "fields": {
+                "security": {
+                  "type": "text",
+                  "analyzer": "es_stk_analyzer"
+                }
+              }
+            },
+            "geo": {
+              "properties": {
+                "city_name": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "continent_code": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "continent_name": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "country_iso_code": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "country_name": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "location": {
+                  "type": "geo_point"
+                },
+                "name": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "postal_code": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "region_iso_code": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "region_name": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "timezone": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                }
+              }
+            },
+            "ip": {
+              "type": "ip"
+            },
+            "mac": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "nat": {
+              "properties": {
+                "ip": {
+                  "type": "ip"
+                },
+                "port": {
+                  "type": "long"
+                }
+              }
+            },
+            "packets": {
+              "type": "long"
+            },
+            "port": {
+              "type": "long"
+            },
+            "registered_domain": {
+              "ignore_above": 32765,
+              "type": "keyword",
+              "fields": {
+                "security": {
+                  "type": "text",
+                  "analyzer": "es_stk_analyzer"
+                }
+              }
+            },
+            "subdomain": {
+              "ignore_above": 32765,
+              "type": "keyword",
+              "fields": {
+                "security": {
+                  "type": "text",
+                  "analyzer": "es_stk_analyzer"
+                }
+              }
+            },
+            "top_level_domain": {
+              "ignore_above": 32765,
+              "type": "keyword",
+              "fields": {
+                "security": {
+                  "type": "text",
+                  "analyzer": "es_stk_analyzer"
+                }
+              }
+            },
+            "user": {
+              "properties": {
+                "domain": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "email": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "full_name": {
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  },
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "group": {
+                  "properties": {
+                    "domain": {
+                      "ignore_above": 32765,
+                      "type": "keyword",
+                      "fields": {
+                        "security": {
+                          "type": "text",
+                          "analyzer": "es_stk_analyzer"
+                        }
+                      }
+                    },
+                    "id": {
+                      "ignore_above": 32765,
+                      "type": "keyword"
+                    },
+                    "name": {
+                      "ignore_above": 32765,
+                      "type": "keyword",
+                      "fields": {
+                        "security": {
+                          "type": "text",
+                          "analyzer": "es_stk_analyzer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "hash": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "id": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "name": {
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  },
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "roles": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

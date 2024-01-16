@@ -1,0 +1,211 @@
+{
+  "_meta": {
+    "description": "Corelight ECS Templates. For technical issues, questions, and documentation see https://github.com/corelight/ecs-templates"
+  },
+  "version": 2024011501,
+  "template": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "es_stk_analyzer": {
+              "char_filter": [
+                "whitespace_no_way"
+              ],
+              "filter": [
+                "trim",
+                "lowercase",
+                "max_token_truncate"
+              ],
+              "tokenizer": "keyword",
+              "type": "custom"
+            }
+          },
+          "char_filter": {
+            "whitespace_no_way": {
+              "pattern": "(\\s)+",
+              "replacement": "$1",
+              "type": "pattern_replace"
+            }
+          },
+          "filter": {
+            "max_token_truncate": {
+              "length": "32766",
+              "type": "truncate"
+            },
+            "path_hierarchy_pattern_filter": {
+              "patterns": [
+                "((?:[^\\\\]*\\\\)*)(.*)",
+                "((?:[^/]*/)*)(.*)"
+              ],
+              "preserve_original": "true",
+              "type": "pattern_capture"
+            }
+          },
+          "tokenizer": {
+            "path_tokenizer": {
+              "delimiter": "\\",
+              "type": "path_hierarchy"
+            }
+          }
+        }
+      }
+    },
+    "mappings": {
+      "properties": {
+        "file": {
+          "properties": {
+            "x509": {
+              "properties": {
+                "alternative_names": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "issuer": {
+                  "properties": {
+                    "common_name": {
+                      "ignore_above": 32765,
+                      "type": "keyword",
+                      "fields": {
+                        "security": {
+                          "type": "text",
+                          "analyzer": "es_stk_analyzer"
+                        }
+                      }
+                    },
+                    "country": {
+                      "ignore_above": 32765,
+                      "type": "keyword"
+                    },
+                    "distinguished_name": {
+                      "ignore_above": 32765,
+                      "type": "keyword"
+                    },
+                    "locality": {
+                      "ignore_above": 32765,
+                      "type": "keyword"
+                    },
+                    "organization": {
+                      "ignore_above": 32765,
+                      "type": "keyword",
+                      "fields": {
+                        "security": {
+                          "type": "text",
+                          "analyzer": "es_stk_analyzer"
+                        }
+                      }
+                    },
+                    "organizational_unit": {
+                      "ignore_above": 32765,
+                      "type": "keyword"
+                    },
+                    "state_or_province": {
+                      "ignore_above": 32765,
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "not_after": {
+                  "type": "date"
+                },
+                "not_before": {
+                  "type": "date"
+                },
+                "public_key_algorithm": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "public_key_curve": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "public_key_exponent": {
+                  "doc_values": false,
+                  "index": false,
+                  "type": "long"
+                },
+                "public_key_size": {
+                  "type": "long"
+                },
+                "serial_number": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "signature_algorithm": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "subject": {
+                  "properties": {
+                    "common_name": {
+                      "ignore_above": 32765,
+                      "type": "keyword",
+                      "fields": {
+                        "security": {
+                          "type": "text",
+                          "analyzer": "es_stk_analyzer"
+                        }
+                      }
+                    },
+                    "country": {
+                      "ignore_above": 32765,
+                      "type": "keyword",
+                      "fields": {
+                        "security": {
+                          "type": "text",
+                          "analyzer": "es_stk_analyzer"
+                        }
+                      }
+                    },
+                    "distinguished_name": {
+                      "ignore_above": 32765,
+                      "type": "keyword",
+                      "fields": {
+                        "security": {
+                          "type": "text",
+                          "analyzer": "es_stk_analyzer"
+                        }
+                      }
+                    },
+                    "locality": {
+                      "ignore_above": 32765,
+                      "type": "keyword"
+                    },
+                    "organization": {
+                      "ignore_above": 32765,
+                      "type": "keyword",
+                      "fields": {
+                        "security": {
+                          "type": "text",
+                          "analyzer": "es_stk_analyzer"
+                        }
+                      }
+                    },
+                    "organizational_unit": {
+                      "ignore_above": 32765,
+                      "type": "keyword"
+                    },
+                    "state_or_province": {
+                      "ignore_above": 32765,
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "version_number": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "_meta": {
+    "description": "Corelight ECS Templates. For technical issues, questions, and documentation see https://github.com/corelight/ecs-templates"
+  },
+  "version": 2024011501,
+  "template": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "es_stk_analyzer": {
+              "char_filter": [
+                "whitespace_no_way"
+              ],
+              "filter": [
+                "trim",
+                "lowercase",
+                "max_token_truncate"
+              ],
+              "tokenizer": "keyword",
+              "type": "custom"
+            }
+          },
+          "char_filter": {
+            "whitespace_no_way": {
+              "pattern": "(\\s)+",
+              "replacement": "$1",
+              "type": "pattern_replace"
+            }
+          },
+          "filter": {
+            "max_token_truncate": {
+              "length": "32766",
+              "type": "truncate"
+            },
+            "path_hierarchy_pattern_filter": {
+              "patterns": [
+                "((?:[^\\\\]*\\\\)*)(.*)",
+                "((?:[^/]*/)*)(.*)"
+              ],
+              "preserve_original": "true",
+              "type": "pattern_capture"
+            }
+          },
+          "tokenizer": {
+            "path_tokenizer": {
+              "delimiter": "\\",
+              "type": "path_hierarchy"
+            }
+          }
+        }
+      }
+    },
+    "mappings": {
+      "properties": {
+        "event": {
+          "properties": {
+            "action": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "agent_id_status": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "category": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "code": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "created": {
+              "type": "date"
+            },
+            "dataset": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "duration": {
+              "type": "long"
+            },
+            "end": {
+              "type": "date"
+            },
+            "hash": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "id": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "ingested": {
+              "type": "date"
+            },
+            "kind": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "module": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "original": {
+              "doc_values": false,
+              "index": false,
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "outcome": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "provider": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "reason": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "reference": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "risk_score": {
+              "type": "float"
+            },
+            "risk_score_norm": {
+              "type": "float"
+            },
+            "sequence": {
+              "type": "long"
+            },
+            "severity": {
+              "type": "long"
+            },
+            "start": {
+              "type": "date"
+            },
+            "timezone": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "type": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "url": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  }
+}

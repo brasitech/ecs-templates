@@ -1,0 +1,113 @@
+{
+  "_meta": {
+    "description": "Corelight ECS Templates. For technical issues, questions, and documentation see https://github.com/corelight/ecs-templates"
+  },
+  "version": 2024011501,
+  "template": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "es_stk_analyzer": {
+              "char_filter": [
+                "whitespace_no_way"
+              ],
+              "filter": [
+                "trim",
+                "lowercase",
+                "max_token_truncate"
+              ],
+              "tokenizer": "keyword",
+              "type": "custom"
+            }
+          },
+          "char_filter": {
+            "whitespace_no_way": {
+              "pattern": "(\\s)+",
+              "replacement": "$1",
+              "type": "pattern_replace"
+            }
+          },
+          "filter": {
+            "max_token_truncate": {
+              "length": "32766",
+              "type": "truncate"
+            },
+            "path_hierarchy_pattern_filter": {
+              "patterns": [
+                "((?:[^\\\\]*\\\\)*)(.*)",
+                "((?:[^/]*/)*)(.*)"
+              ],
+              "preserve_original": "true",
+              "type": "pattern_capture"
+            }
+          },
+          "tokenizer": {
+            "path_tokenizer": {
+              "delimiter": "\\",
+              "type": "path_hierarchy"
+            }
+          }
+        }
+      }
+    },
+    "mappings": {
+      "properties": {
+        "dns": {
+          "properties": {
+            "answers_count": {
+              "type": "long"
+            },
+            "flags": {
+              "properties": {
+                "authoritative": {
+                  "type": "boolean"
+                },
+                "recursion": {
+                  "properties": {
+                    "available": {
+                      "type": "boolean"
+                    },
+                    "desired": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "rejected": {
+                  "type": "boolean"
+                },
+                "truncated": {
+                  "properties": {
+                    "response": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "z_bit": {
+                  "type": "integer"
+                }
+              }
+            },
+            "question": {
+              "properties": {
+                "etld_plus_one": {
+                  "ignore_above": 4096,
+                  "type": "keyword"
+                },
+                "name_length": {
+                  "type": "long"
+                },
+                "resolved_ip": {
+                  "type": "ip"
+                }
+              }
+            },
+            "status_code": {
+              "type": "long"
+            }
+          }
+        }
+      }
+    }
+  }
+}

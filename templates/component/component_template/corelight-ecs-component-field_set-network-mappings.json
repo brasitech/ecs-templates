@@ -1,0 +1,187 @@
+{
+  "_meta": {
+    "description": "Corelight ECS Templates. For technical issues, questions, and documentation see https://github.com/corelight/ecs-templates"
+  },
+  "version": 2024011501,
+  "template": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "es_stk_analyzer": {
+              "char_filter": [
+                "whitespace_no_way"
+              ],
+              "filter": [
+                "trim",
+                "lowercase",
+                "max_token_truncate"
+              ],
+              "tokenizer": "keyword",
+              "type": "custom"
+            }
+          },
+          "char_filter": {
+            "whitespace_no_way": {
+              "pattern": "(\\s)+",
+              "replacement": "$1",
+              "type": "pattern_replace"
+            }
+          },
+          "filter": {
+            "max_token_truncate": {
+              "length": "32766",
+              "type": "truncate"
+            },
+            "path_hierarchy_pattern_filter": {
+              "patterns": [
+                "((?:[^\\\\]*\\\\)*)(.*)",
+                "((?:[^/]*/)*)(.*)"
+              ],
+              "preserve_original": "true",
+              "type": "pattern_capture"
+            }
+          },
+          "tokenizer": {
+            "path_tokenizer": {
+              "delimiter": "\\",
+              "type": "path_hierarchy"
+            }
+          }
+        }
+      }
+    },
+    "mappings": {
+      "properties": {
+        "network": {
+          "properties": {
+            "application": {
+              "ignore_above": 32765,
+              "type": "keyword",
+              "fields": {
+                "security": {
+                  "type": "text",
+                  "analyzer": "es_stk_analyzer"
+                }
+              }
+            },
+            "bytes": {
+              "type": "long"
+            },
+            "community_id": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "direction": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "forwarded_ip": {
+              "type": "ip"
+            },
+            "iana_number": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "inner": {
+              "properties": {
+                "vlan": {
+                  "properties": {
+                    "id": {
+                      "ignore_above": 32765,
+                      "type": "keyword"
+                    },
+                    "name": {
+                      "ignore_above": 32765,
+                      "type": "keyword",
+                      "fields": {
+                        "security": {
+                          "type": "text",
+                          "analyzer": "es_stk_analyzer"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "type": "object"
+            },
+            "name": {
+              "ignore_above": 32765,
+              "type": "keyword",
+              "fields": {
+                "security": {
+                  "type": "text",
+                  "analyzer": "es_stk_analyzer"
+                }
+              }
+            },
+            "packets": {
+              "type": "long"
+            },
+            "protocol": {
+              "ignore_above": 32765,
+              "type": "keyword",
+              "fields": {
+                "security": {
+                  "type": "text",
+                  "analyzer": "es_stk_analyzer"
+                }
+              }
+            },
+            "transport": {
+              "ignore_above": 32765,
+              "type": "keyword",
+              "fields": {
+                "security": {
+                  "type": "text",
+                  "analyzer": "es_stk_analyzer"
+                }
+              }
+            },
+            "type": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "vlan": {
+              "properties": {
+                "id": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "inner": {
+                  "properties": {
+                    "id": {
+                      "ignore_above": 32765,
+                      "type": "keyword"
+                    },
+                    "name": {
+                      "ignore_above": 32765,
+                      "type": "keyword",
+                      "fields": {
+                        "security": {
+                          "type": "text",
+                          "analyzer": "es_stk_analyzer"
+                        }
+                      }
+                    }
+                  }
+                },
+                "name": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

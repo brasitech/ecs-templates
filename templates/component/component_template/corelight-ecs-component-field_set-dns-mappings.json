@@ -1,0 +1,174 @@
+{
+  "_meta": {
+    "description": "Corelight ECS Templates. For technical issues, questions, and documentation see https://github.com/corelight/ecs-templates"
+  },
+  "version": 2024011501,
+  "template": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "es_stk_analyzer": {
+              "char_filter": [
+                "whitespace_no_way"
+              ],
+              "filter": [
+                "trim",
+                "lowercase",
+                "max_token_truncate"
+              ],
+              "tokenizer": "keyword",
+              "type": "custom"
+            }
+          },
+          "char_filter": {
+            "whitespace_no_way": {
+              "pattern": "(\\s)+",
+              "replacement": "$1",
+              "type": "pattern_replace"
+            }
+          },
+          "filter": {
+            "max_token_truncate": {
+              "length": "32766",
+              "type": "truncate"
+            },
+            "path_hierarchy_pattern_filter": {
+              "patterns": [
+                "((?:[^\\\\]*\\\\)*)(.*)",
+                "((?:[^/]*/)*)(.*)"
+              ],
+              "preserve_original": "true",
+              "type": "pattern_capture"
+            }
+          },
+          "tokenizer": {
+            "path_tokenizer": {
+              "delimiter": "\\",
+              "type": "path_hierarchy"
+            }
+          }
+        }
+      }
+    },
+    "mappings": {
+      "properties": {
+        "dns": {
+          "properties": {
+            "answers": {
+              "properties": {
+                "class": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "data": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "name": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "ttl": {
+                  "type": "long"
+                },
+                "type": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                }
+              },
+              "type": "object"
+            },
+            "header_flags": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "id": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "op_code": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "question": {
+              "properties": {
+                "class": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "name": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "registered_domain": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "subdomain": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "top_level_domain": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "type": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                }
+              }
+            },
+            "resolved_ip": {
+              "type": "ip"
+            },
+            "response_code": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "type": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  }
+}

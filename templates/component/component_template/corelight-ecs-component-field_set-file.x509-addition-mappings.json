@@ -1,0 +1,153 @@
+{
+  "_meta": {
+    "description": "Corelight ECS Templates. For technical issues, questions, and documentation see https://github.com/corelight/ecs-templates"
+  },
+  "version": 2024011501,
+  "template": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "es_stk_analyzer": {
+              "char_filter": [
+                "whitespace_no_way"
+              ],
+              "filter": [
+                "trim",
+                "lowercase",
+                "max_token_truncate"
+              ],
+              "tokenizer": "keyword",
+              "type": "custom"
+            }
+          },
+          "char_filter": {
+            "whitespace_no_way": {
+              "pattern": "(\\s)+",
+              "replacement": "$1",
+              "type": "pattern_replace"
+            }
+          },
+          "filter": {
+            "max_token_truncate": {
+              "length": "32766",
+              "type": "truncate"
+            },
+            "path_hierarchy_pattern_filter": {
+              "patterns": [
+                "((?:[^\\\\]*\\\\)*)(.*)",
+                "((?:[^/]*/)*)(.*)"
+              ],
+              "preserve_original": "true",
+              "type": "pattern_capture"
+            }
+          },
+          "tokenizer": {
+            "path_tokenizer": {
+              "delimiter": "\\",
+              "type": "path_hierarchy"
+            }
+          }
+        }
+      }
+    },
+    "mappings": {
+      "properties": {
+        "file": {
+          "properties": {
+            "x509": {
+              "properties": {
+                "certificate": {
+                  "properties": {
+                    "basic_constraints": {
+                      "properties": {
+                        "ca": {
+                          "type": "boolean"
+                        },
+                        "path_length": {
+                          "type": "long"
+                        }
+                      }
+                    },
+                    "common_name": {
+                      "fields": {
+                        "security": {
+                          "analyzer": "es_stk_analyzer",
+                          "type": "text"
+                        }
+                      },
+                      "type": "keyword"
+                    },
+                    "exponent": {
+                      "fields": {
+                        "security": {
+                          "analyzer": "es_stk_analyzer",
+                          "type": "text"
+                        }
+                      },
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "client_cert": {
+                  "type": "boolean"
+                },
+                "host_cert": {
+                  "type": "boolean"
+                },
+                "logcert": {
+                  "type": "boolean"
+                },
+                "not_after_non_formatted_date": {
+                  "type": "keyword"
+                },
+                "not_before_non_formatted_date": {
+                  "type": "keyword"
+                },
+                "public_key_type": {
+                  "fields": {
+                    "security": {
+                      "analyzer": "es_stk_analyzer",
+                      "type": "text"
+                    }
+                  },
+                  "type": "keyword"
+                },
+                "san_dns": {
+                  "fields": {
+                    "security": {
+                      "analyzer": "es_stk_analyzer",
+                      "type": "text"
+                    }
+                  },
+                  "type": "keyword"
+                },
+                "san_email": {
+                  "fields": {
+                    "security": {
+                      "analyzer": "es_stk_analyzer",
+                      "type": "text"
+                    }
+                  },
+                  "type": "keyword"
+                },
+                "san_ip": {
+                  "type": "ip"
+                },
+                "san_uri": {
+                  "fields": {
+                    "security": {
+                      "analyzer": "es_stk_analyzer",
+                      "type": "text"
+                    }
+                  },
+                  "type": "keyword"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

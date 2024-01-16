@@ -1,0 +1,118 @@
+{
+  "_meta": {
+    "description": "Corelight ECS Templates. For technical issues, questions, and documentation see https://github.com/corelight/ecs-templates"
+  },
+  "version": 2024011501,
+  "template": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "es_stk_analyzer": {
+              "char_filter": [
+                "whitespace_no_way"
+              ],
+              "filter": [
+                "trim",
+                "lowercase",
+                "max_token_truncate"
+              ],
+              "tokenizer": "keyword",
+              "type": "custom"
+            }
+          },
+          "char_filter": {
+            "whitespace_no_way": {
+              "pattern": "(\\s)+",
+              "replacement": "$1",
+              "type": "pattern_replace"
+            }
+          },
+          "filter": {
+            "max_token_truncate": {
+              "length": "32766",
+              "type": "truncate"
+            },
+            "path_hierarchy_pattern_filter": {
+              "patterns": [
+                "((?:[^\\\\]*\\\\)*)(.*)",
+                "((?:[^/]*/)*)(.*)"
+              ],
+              "preserve_original": "true",
+              "type": "pattern_capture"
+            }
+          },
+          "tokenizer": {
+            "path_tokenizer": {
+              "delimiter": "\\",
+              "type": "path_hierarchy"
+            }
+          }
+        }
+      }
+    },
+    "mappings": {
+      "properties": {
+        "user_agent": {
+          "properties": {
+            "build": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "device": {
+              "properties": {
+                "name": {
+                  "fields": {
+                    "security": {
+                      "analyzer": "es_stk_analyzer",
+                      "type": "text"
+                    }
+                  },
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                }
+              }
+            },
+            "has_non_ascii": {
+              "type": "boolean"
+            },
+            "has_whitespace": {
+              "type": "boolean"
+            },
+            "major": {
+              "type": "long"
+            },
+            "minor": {
+              "type": "long"
+            },
+            "minor2": {
+              "type": "long"
+            },
+            "minor3": {
+              "type": "long"
+            },
+            "original_length": {
+              "type": "long"
+            },
+            "os": {
+              "properties": {
+                "major": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "minor": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                }
+              }
+            },
+            "patch": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  }
+}

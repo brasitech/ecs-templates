@@ -1,0 +1,100 @@
+{
+  "_meta": {
+    "description": "Corelight ECS Templates. For technical issues, questions, and documentation see https://github.com/corelight/ecs-templates"
+  },
+  "version": 2024011501,
+  "template": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "es_stk_analyzer": {
+              "char_filter": [
+                "whitespace_no_way"
+              ],
+              "filter": [
+                "trim",
+                "lowercase",
+                "max_token_truncate"
+              ],
+              "tokenizer": "keyword",
+              "type": "custom"
+            }
+          },
+          "char_filter": {
+            "whitespace_no_way": {
+              "pattern": "(\\s)+",
+              "replacement": "$1",
+              "type": "pattern_replace"
+            }
+          },
+          "filter": {
+            "max_token_truncate": {
+              "length": "32766",
+              "type": "truncate"
+            },
+            "path_hierarchy_pattern_filter": {
+              "patterns": [
+                "((?:[^\\\\]*\\\\)*)(.*)",
+                "((?:[^/]*/)*)(.*)"
+              ],
+              "preserve_original": "true",
+              "type": "pattern_capture"
+            }
+          },
+          "tokenizer": {
+            "path_tokenizer": {
+              "delimiter": "\\",
+              "type": "path_hierarchy"
+            }
+          }
+        }
+      }
+    },
+    "mappings": {
+      "properties": {
+        "url": {
+          "properties": {
+            "domain_length": {
+              "type": "long"
+            },
+            "extension_length": {
+              "type": "long"
+            },
+            "has_non_ascii": {
+              "type": "boolean"
+            },
+            "has_whitespace": {
+              "type": "boolean"
+            },
+            "original_length": {
+              "type": "long"
+            },
+            "path_length": {
+              "type": "long"
+            },
+            "query_length": {
+              "type": "long"
+            },
+            "rfc_compliant": {
+              "type": "boolean"
+            },
+            "total_paths": {
+              "type": "long"
+            },
+            "variables": {
+              "fields": {
+                "security": {
+                  "analyzer": "es_stk_analyzer",
+                  "type": "text"
+                }
+              },
+              "ignore_above": 32765,
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  }
+}

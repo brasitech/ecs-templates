@@ -1,0 +1,348 @@
+{
+  "_meta": {
+    "description": "Corelight ECS Templates. For technical issues, questions, and documentation see https://github.com/corelight/ecs-templates"
+  },
+  "version": 2024011501,
+  "template": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "es_stk_analyzer": {
+              "char_filter": [
+                "whitespace_no_way"
+              ],
+              "filter": [
+                "trim",
+                "lowercase",
+                "max_token_truncate"
+              ],
+              "tokenizer": "keyword",
+              "type": "custom"
+            }
+          },
+          "char_filter": {
+            "whitespace_no_way": {
+              "pattern": "(\\s)+",
+              "replacement": "$1",
+              "type": "pattern_replace"
+            }
+          },
+          "filter": {
+            "max_token_truncate": {
+              "length": "32766",
+              "type": "truncate"
+            },
+            "path_hierarchy_pattern_filter": {
+              "patterns": [
+                "((?:[^\\\\]*\\\\)*)(.*)",
+                "((?:[^/]*/)*)(.*)"
+              ],
+              "preserve_original": "true",
+              "type": "pattern_capture"
+            }
+          },
+          "tokenizer": {
+            "path_tokenizer": {
+              "delimiter": "\\",
+              "type": "path_hierarchy"
+            }
+          }
+        }
+      }
+    },
+    "mappings": {
+      "properties": {
+        "host": {
+          "properties": {
+            "address": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "as": {
+              "properties": {
+                "network": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "number": {
+                  "type": "long"
+                },
+                "organization": {
+                  "properties": {
+                    "name": {
+                      "fields": {
+                        "security": {
+                          "type": "text",
+                          "analyzer": "es_stk_analyzer"
+                        }
+                      },
+                      "ignore_above": 32765,
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            },
+            "architecture": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "boot": {
+              "properties": {
+                "id": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                }
+              }
+            },
+            "containerized": {
+              "type": "boolean"
+            },
+            "cpu": {
+              "properties": {
+                "usage": {
+                  "scaling_factor": 1000,
+                  "type": "scaled_float"
+                }
+              }
+            },
+            "disk": {
+              "properties": {
+                "read": {
+                  "properties": {
+                    "bytes": {
+                      "type": "long"
+                    }
+                  }
+                },
+                "write": {
+                  "properties": {
+                    "bytes": {
+                      "type": "long"
+                    }
+                  }
+                }
+              }
+            },
+            "domain": {
+              "ignore_above": 32765,
+              "type": "keyword",
+              "fields": {
+                "security": {
+                  "type": "text",
+                  "analyzer": "es_stk_analyzer"
+                }
+              }
+            },
+            "geo": {
+              "properties": {
+                "city_name": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "continent_code": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "continent_name": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "country_iso_code": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "country_name": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "location": {
+                  "type": "geo_point"
+                },
+                "name": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "postal_code": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "region_iso_code": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "region_name": {
+                  "ignore_above": 32765,
+                  "type": "keyword",
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  }
+                },
+                "timezone": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                }
+              }
+            },
+            "hostname": {
+              "ignore_above": 32765,
+              "type": "keyword",
+              "fields": {
+                "security": {
+                  "type": "text",
+                  "analyzer": "es_stk_analyzer"
+                }
+              }
+            },
+            "id": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "ip": {
+              "type": "ip"
+            },
+            "mac": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "name": {
+              "ignore_above": 32765,
+              "type": "keyword",
+              "fields": {
+                "security": {
+                  "type": "text",
+                  "analyzer": "es_stk_analyzer"
+                }
+              }
+            },
+            "network": {
+              "properties": {
+                "egress": {
+                  "properties": {
+                    "bytes": {
+                      "type": "long"
+                    },
+                    "packets": {
+                      "type": "long"
+                    }
+                  }
+                },
+                "ingress": {
+                  "properties": {
+                    "bytes": {
+                      "type": "long"
+                    },
+                    "packets": {
+                      "type": "long"
+                    }
+                  }
+                }
+              }
+            },
+            "os": {
+              "properties": {
+                "family": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "full": {
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  },
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "kernel": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "name": {
+                  "fields": {
+                    "security": {
+                      "type": "text",
+                      "analyzer": "es_stk_analyzer"
+                    }
+                  },
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "platform": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "type": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "version": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                }
+              }
+            },
+            "pid_ns_ino": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "risk": {
+              "properties": {
+                "calculated_level": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "calculated_score": {
+                  "type": "float"
+                },
+                "calculated_score_norm": {
+                  "type": "float"
+                },
+                "static_level": {
+                  "ignore_above": 32765,
+                  "type": "keyword"
+                },
+                "static_score": {
+                  "type": "float"
+                },
+                "static_score_norm": {
+                  "type": "float"
+                }
+              }
+            },
+            "type": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "uptime": {
+              "type": "long"
+            }
+          }
+        }
+      }
+    }
+  }
+}

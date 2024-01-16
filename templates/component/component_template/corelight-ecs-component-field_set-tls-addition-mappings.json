@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Corelight ECS Templates. For technical issues, questions, and documentation see https://github.com/corelight/ecs-templates"
   },
-  "version": 2023120101,
+  "version": 2024011501,
   "template": {
     "settings": {
       "index": {
@@ -53,76 +53,53 @@
     },
     "mappings": {
       "properties": {
-        "labels": {
+        "tls": {
           "properties": {
-            "etl": {
+            "client": {
               "properties": {
-                "format_applied": {
-                  "doc_values": false,
-                  "norms": false,
+                "cert_chain_fingerprints": {
+                  "ignore_above": 4096,
                   "type": "keyword"
                 },
-                "format_final_codec": {
-                  "doc_values": false,
-                  "norms": false,
+                "connection_history": {
+                  "ignore_above": 4096,
                   "type": "keyword"
                 },
-                "format_is_json": {
-                  "doc_values": false,
-                  "norms": false,
-                  "type": "keyword"
-                },
-                "info_tags": {
-                  "doc_values": false,
-                  "norms": false,
-                  "type": "keyword"
-                },
-                "input_application_protocol": {
-                  "doc_values": false,
-                  "norms": false,
-                  "type": "keyword"
-                },
-                "kafka": {
-                  "properties": {
-                    "consumer_group": {
-                      "ignore_above": 4096,
-                      "type": "keyword"
-                    },
-                    "offset": {
-                      "type": "long"
-                    },
-                    "partition": {
-                      "type": "integer"
-                    },
-                    "time": {
-                      "format": "epoch_millis",
-                      "type": "date"
-                    },
-                    "topic": {
-                      "ignore_above": 4096,
-                      "type": "keyword"
+                "connection_history_detailed": {
+                  "fields": {
+                    "security": {
+                      "analyzer": "es_stk_analyzer",
+                      "type": "text"
                     }
                   },
-                  "type": "object"
-                },
-                "logstash_hostname": {
                   "ignore_above": 4096,
-                  "norms": false,
                   "type": "keyword"
-                },
-                "pipeline": {
-                  "doc_values": false,
-                  "norms": false,
-                  "type": "keyword"
-                },
-                "processed_time": {
-                  "type": "date"
                 }
-              },
-              "type": "object"
+              }
+            },
+            "server": {
+              "properties": {
+                "cert_chain_fingerprints": {
+                  "ignore_above": 4096,
+                  "type": "keyword"
+                },
+                "connection_history": {
+                  "ignore_above": 4096,
+                  "type": "keyword"
+                },
+                "connection_history_detailed": {
+                  "fields": {
+                    "security": {
+                      "analyzer": "es_stk_analyzer",
+                      "type": "text"
+                    }
+                  },
+                  "ignore_above": 4096,
+                  "type": "keyword"
+                }
+              }
             }
-          },
-          "type": "object"
+          }
         }
       }
     }

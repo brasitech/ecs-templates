@@ -1,0 +1,94 @@
+{
+  "_meta": {
+    "description": "Corelight ECS Templates. For technical issues, questions, and documentation see https://github.com/corelight/ecs-templates"
+  },
+  "version": 2024011501,
+  "template": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "es_stk_analyzer": {
+              "char_filter": [
+                "whitespace_no_way"
+              ],
+              "filter": [
+                "trim",
+                "lowercase",
+                "max_token_truncate"
+              ],
+              "tokenizer": "keyword",
+              "type": "custom"
+            }
+          },
+          "char_filter": {
+            "whitespace_no_way": {
+              "pattern": "(\\s)+",
+              "replacement": "$1",
+              "type": "pattern_replace"
+            }
+          },
+          "filter": {
+            "max_token_truncate": {
+              "length": "32766",
+              "type": "truncate"
+            },
+            "path_hierarchy_pattern_filter": {
+              "patterns": [
+                "((?:[^\\\\]*\\\\)*)(.*)",
+                "((?:[^/]*/)*)(.*)"
+              ],
+              "preserve_original": "true",
+              "type": "pattern_capture"
+            }
+          },
+          "tokenizer": {
+            "path_tokenizer": {
+              "delimiter": "\\",
+              "type": "path_hierarchy"
+            }
+          }
+        }
+      }
+    },
+    "mappings": {
+      "properties": {
+        "related": {
+          "properties": {
+            "as_number": {
+              "type": "integer"
+            },
+            "id": {
+              "type": "keyword"
+            },
+            "ip_dst_to_src": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "ip_pair_any_dst_and_src": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "ip_src_to_dst": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "mac": {
+              "type": "keyword"
+            },
+            "network_4tuple_hash": {
+              "ignore_above": 4096,
+              "type": "keyword"
+            },
+            "network_dst_src_ip_unique": {
+              "type": "boolean"
+            },
+            "vlan_id": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    }
+  }
+}
