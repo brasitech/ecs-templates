@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Corelight ECS Templates. For technical issues, questions, and documentation see https://github.com/corelight/ecs-templates"
   },
-  "version": 2024011501,
+  "version": 2024012201,
   "template": {
     "settings": {
       "index": {
@@ -260,6 +260,13 @@
               "type": "keyword"
             },
             "level_5_domain_length": {
+              "type": "long"
+            },
+            "level_last_domain": {
+              "ignore_above": 32765,
+              "type": "keyword"
+            },
+            "level_last_domain_length": {
               "type": "long"
             },
             "parent_domain": {
