@@ -431,6 +431,7 @@
                       "type": "text",
                       "analyzer": "es_stk_analyzer"
                     }
+                  }
                 },
                 "x509": {
                   "properties": {
