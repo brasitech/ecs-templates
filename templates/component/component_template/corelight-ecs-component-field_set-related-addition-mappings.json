@@ -2,7 +2,7 @@
   "_meta": {
     "description": "Corelight ECS Templates. For technical issues, questions, and documentation see https://github.com/corelight/ecs-templates"
   },
-  "version": 2024011501,
+  "version": 2024021401,
   "template": {
     "settings": {
       "index": {
@@ -59,6 +59,7 @@
               "type": "integer"
             },
             "id": {
+              "ignore_above": 32765,
               "type": "keyword"
             },
             "ip_dst_to_src": {
@@ -74,6 +75,7 @@
               "type": "keyword"
             },
             "mac": {
+              "ignore_above": 32765,
               "type": "keyword"
             },
             "network_4tuple_hash": {
